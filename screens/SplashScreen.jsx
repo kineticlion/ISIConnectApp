@@ -7,7 +7,7 @@ const windowHeight = Dimensions.get("window").height;
 export default SplashScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      //navigation.replace("Login");
+      navigation.replace("Login");
     }, 1800);
   }, []);
   return (
