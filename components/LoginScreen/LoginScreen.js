@@ -9,10 +9,6 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from "react-native";
-import Spinner from "react-bootstrap/Spinner";
-/**
- * ? Local Imports
- */
 import Logo from "../Logo/Logo";
 import styles, { container } from "./LoginScreen.style";
 import BottomContainer from "../BottomContainer/BottomContainer";
