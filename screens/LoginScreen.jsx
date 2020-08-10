@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "../components/LoginScreen/LoginScreen";
-import { Image, Alert } from "react-native";
+import { Alert } from "react-native";
 export default LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +45,7 @@ export default LoginScreen = ({ navigation }) => {
 
   return (
     <Login
-      source={require("../assets/connectBg.jpg")}
+      source={require("../assets/background.jpg")}
       spinnerEnable={true}
       spinnerVisibility={spinnerStatus}
       spinnerSize="large"
@@ -54,7 +54,6 @@ export default LoginScreen = ({ navigation }) => {
       onPressLogin={handleVerification}
       usernameOnChangeText={(username) => setUsername(username)}
       passwordOnChangeText={(password) => setPassword(password)}
-      loginText="Login"
       loginButtonTextStyle={{
         fontSize: 20,
         color: "white",
@@ -63,7 +62,7 @@ export default LoginScreen = ({ navigation }) => {
         textTransform: "capitalize",
       }}
       disableSettings={true}
-      loginButtonBackgroundColor="#1d1d1d"
+      loginButtonBackgroundColor="#000"
     />
   );
 };

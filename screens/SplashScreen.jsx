@@ -14,7 +14,7 @@ export default SplashScreen = ({ navigation }) => {
     <View style={(styles.container, styles.splash)}>
       <View
         style={{
-          backgroundColor: "#1d1d1d",
+          backgroundColor: "#000",
           height: windowHeight,
           width: windowWidth,
           alignItems: "center",
@@ -22,7 +22,7 @@ export default SplashScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../assets/isilogo.png")}
+          source={require("../assets/logo.png")}
           style={{
             resizeMode: "center",
             height: "20%",

@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import Icon from "react-native-dynamic-vector-icons";
 import styles, { container } from "./BottomContainer.style";
 
-const BottomContainer = props => {
+const BottomContainer = (props) => {
   const {
     switchText,
     switchValue,
@@ -20,7 +20,7 @@ const BottomContainer = props => {
     usernameIconComponent,
     passwordIconComponent,
     usernameTextInputValue,
-    passwordTextInputValue
+    passwordTextInputValue,
   } = props;
   return (
     <View style={container(backgroundColor)}>
@@ -29,6 +29,7 @@ const BottomContainer = props => {
           value={usernameTextInputValue}
           onChangeText={usernameOnChangeText}
           iconComponent={usernameIconComponent}
+          placeholder="Example@gmail.com"
           {...props}
         />
         <Card
@@ -38,7 +39,7 @@ const BottomContainer = props => {
           type="FontAwesome"
           value={passwordTextInputValue}
           placeholder="Your Password"
-          onChangeText={text => passwordOnChangeText(text)}
+          onChangeText={(text) => passwordOnChangeText(text)}
           iconComponent={passwordIconComponent}
           {...props}
         />
@@ -77,14 +78,14 @@ const BottomContainer = props => {
 BottomContainer.propTypes = {
   switchText: PropTypes.string,
   disableSettings: PropTypes.bool,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
 };
 
 BottomContainer.defaultProps = {
   IconComponent: Icon,
   disableSettings: false,
   switchText: "Remember me",
-  backgroundColor: "rgba(255,255,255,0.45)"
+  backgroundColor: "rgba(255,255,255,0.45)",
 };
 
 export default BottomContainer;
