@@ -17,6 +17,8 @@ const BottomContainer = (props) => {
     onSwitchValueChange,
     usernameOnChangeText,
     passwordOnChangeText,
+    usernameDefaultValue,
+    passwordDefaultValue,
     usernameIconComponent,
     passwordIconComponent,
     usernameTextInputValue,
@@ -30,6 +32,7 @@ const BottomContainer = (props) => {
           onChangeText={usernameOnChangeText}
           iconComponent={usernameIconComponent}
           placeholder="Example@gmail.com"
+          defaultValue={usernameDefaultValue}
           {...props}
         />
         <Card
@@ -41,6 +44,7 @@ const BottomContainer = (props) => {
           placeholder="Your Password"
           onChangeText={(text) => passwordOnChangeText(text)}
           iconComponent={passwordIconComponent}
+          defaultValue={passwordDefaultValue}
           {...props}
         />
       </View>

@@ -17,6 +17,7 @@ const Card = (props) => {
     onChangeText,
     selectionColor,
     iconComponent,
+    defaultValue,
   } = props;
   return (
     <View style={styles.container}>
@@ -40,6 +41,7 @@ const Card = (props) => {
             selectionColor={selectionColor}
             onChangeText={onChangeText}
             style={textStyle || _textInputStyle(textColor)}
+            defaultValue={value}
             {...props}
           />
         </View>
@@ -54,6 +56,7 @@ Card.propTypes = {
   titleColor: PropTypes.string,
   placeholder: PropTypes.string,
   selectionColor: PropTypes.string,
+  defaultValue: PropTypes.string,
 };
 
 Card.defaultProps = {
