@@ -1,3 +1,5 @@
+import { ScreenWidth } from "@freakycoder/react-native-helpers";
+
 export default {
   container: {
     marginTop: 18,
@@ -12,5 +14,5 @@ export default {
     alignItems: "center",
     flexDirection: "row",
   },
-  iconStyle: { marginLeft: 12 },
+  logoStyle: { marginLeft: 12 },
 };

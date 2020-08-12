@@ -1,12 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
+import Profile from "../Profile/Profile";
 export default Dashboard = ({ navigation, route }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome</Text>
-    </View>
-  );
+  return <Profile></Profile>;
 };
 
 const styles = StyleSheet.create({

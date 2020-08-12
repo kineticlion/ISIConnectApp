@@ -48,8 +48,7 @@ export default LoginScreen = ({ navigation }) => {
   };
 
   const displayAlert = (title, msg) => {
-    const alertButtons = [{ text: "OK" }, { cancelable: false }];
-    return Alert.alert(title, msg, alertButtons);
+    return Alert.alert(title, msg);
   };
 
   return (
