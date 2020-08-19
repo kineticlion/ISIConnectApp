@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Login from "../components/LoginScreen/LoginScreen";
 import { Alert } from "react-native";
 import { read, rememberUser } from "../utils/storage";
+import Api from "../api/Api";
 export default LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,48 +13,33 @@ export default LoginScreen = ({ navigation }) => {
     read(setUsername, setPassword, setSwitchValue);
   }, []);
 
-  const handleSendRequest = async () => {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        email: username.toLocaleLowerCase(),
-        pwd: password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch(
-      `http://connect-isi.herokuapp.com/isvaliduser`,
-      options
-    );
-    const data = await response.json();
-    return data;
-  };
-
   const handleVerification = async () => {
     try {
       setSpinnerStatus(true);
-      const data = await handleSendRequest();
-      if (data.msg === "valid user") {
+      setTimeout(() => {
         rememberUser(username, password, switchValue);
         navigation.replace("Dashboard");
+        setSpinnerStatus(false);
         return;
-      }
-      displayAlert("Login Error", "Please check your Email or Password.");
+      }, 400);
+      // const data = await Api.login(username, password);
+      // if (data.msg === "valid user") {
+      //   rememberUser(username, password, switchValue);
+      //   navigation.replace("Dashboard");
+      //   return;
+      //displayAlert("Login Error", "Please check your Email or Password.");
     } catch (err) {
-      alert(err);
+      console.log(err);
     }
-    setSpinnerStatus(false);
   };
 
-  const displayAlert = (title, msg) => {
+  const displayAlert = (title, msg, buttons = []) => {
     return Alert.alert(title, msg);
   };
 
   return (
     <Login
-      source={require("../assets/background.jpg")}
+      source={require("../assets/appimages/background.jpg")}
       spinnerEnable={true}
       spinnerVisibility={spinnerStatus}
       spinnerSize="large"

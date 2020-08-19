@@ -10,7 +10,7 @@ const Logo = (props) => {
         <View style={styles.row}>
           <View style={styles.logoStyle}>
             <Image
-              source={require("../../assets/applogo.png")}
+              source={require("../../assets/appimages/applogo.png")}
               style={{ marginTop: "5%", resizeMode: "center" }}
             />
           </View>

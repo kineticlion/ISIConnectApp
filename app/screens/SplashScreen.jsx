@@ -22,7 +22,7 @@ export default SplashScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../assets/logo.png")}
+          source={require("../assets/appimages/logo.png")}
           style={{
             resizeMode: "center",
             height: "20%",

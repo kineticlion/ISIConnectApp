@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Switch, Text, View, TouchableOpacity } from "react-native";
+import { Switch, Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Card from "../Card/Card";
 import Icon from "react-native-dynamic-vector-icons";
 import styles, { container } from "./BottomContainer.style";
@@ -91,5 +91,11 @@ BottomContainer.defaultProps = {
   switchText: "Remember me",
   backgroundColor: "rgba(255,255,255,0.45)",
 };
+
+const styles2 = StyleSheet.create({
+  container: {
+    color: "red",
+  },
+});
 
 export default BottomContainer;
