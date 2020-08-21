@@ -12,40 +12,10 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
-const _pickImage = async () => {
-  let result;
-  try {
-    result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      // console.log(result);
-      //sendImage(result.uri);
-      // console.log("not cancelled");
-      // sendImage();
-    }
-  } catch (E) {
-    // console.log(E);
-  }
-};
+const Profile = (props) => {
+  const { uri, firstName, lastName, phone, email, zipcode, id, type } = props;
 
-// const getPermission = async () => {
-//   const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-//   return status === "granted" ? _pickImage() : await askPermission();
-// };
-
-const Profile = ({ uri }) => {
   const imageURI = { uri: "https://i.ibb.co/xmZGsky/portrait.jpg" };
-
-  const setImage = async () => {
-    const permission = getCameraRollPermission();
-    if (!permission) return;
-    const image = await pickImage();
-    return image ? saveuri(image.uri) : null;
-  };
 
   return (
     <View style={styles.container}>
@@ -59,23 +29,25 @@ const Profile = ({ uri }) => {
               justifyContent: "center",
             }}
           >
-            <Title>Sufiyan Saboowala</Title>
-            <Caption>ID : {Date.now()}</Caption>
-            <Caption>Super Admin</Caption>
+            <Title>
+              {firstName} {lastName}
+            </Title>
+            <Caption>{id}</Caption>
+            <Caption>{type}</Caption>
           </View>
         </View>
         <View style={styles.userInfoSection}>
           <View style={styles.row}>
             <Icon name="email" size={20} color="black" />
-            <Text style={styles.infoText}>EmailId@gmail.com</Text>
+            <Text style={styles.infoText}>{email}</Text>
           </View>
           <View style={styles.row}>
             <Icon name="phone" size={20} color="black" />
-            <Text style={styles.infoText}>4387259295</Text>
+            <Text style={styles.infoText}>{phone}</Text>
           </View>
           <View style={styles.row}>
             <Icon name="map-marker" size={20} color="black" />
-            <Text style={styles.infoText}>H3N2L8</Text>
+            <Text style={styles.infoText}>{zipcode}</Text>
           </View>
         </View>
       </View>
@@ -83,7 +55,22 @@ const Profile = ({ uri }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ uri: state.entities.user.data.uri });
+const mapStateToProps = (state) => {
+  return {
+    uri: state.entities.user.data.uri,
+    firstName: state.entities.user.data.firstName,
+    lastName: state.entities.user.data.lastName,
+    id: state.entities.user.data.id,
+    phone: state.entities.user.data.phone,
+    type: state.entities.user.data.type,
+    zipcode: state.entities.user.data.zipcode,
+    email: state.entities.user.data.email,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -100,4 +87,4 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,6 +1,7 @@
 import Config from "../../config";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
+import { Alert } from "react-native";
 export const pickImage = async () => {
   let result;
   try {
@@ -17,6 +18,10 @@ export const pickImage = async () => {
   } catch (error) {
     alert(error);
   }
+};
+
+export const displayAlert = (title, msg, buttons = []) => {
+  return Alert.alert(title, msg);
 };
 
 export const getCameraRollPermission = async () => {

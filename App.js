@@ -10,6 +10,7 @@ import configureStore from "./app/store/store";
 import { userReceived, userLoaded, loadUser } from "./app/store/user";
 import { Provider } from "react-redux";
 import { View, Button } from "react-native";
+
 const store = configureStore();
 
 const Stack = createStackNavigator();

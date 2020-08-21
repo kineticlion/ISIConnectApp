@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
+import { useReducer } from "react";
 
 const slice = createSlice({
   name: "user",
@@ -17,6 +18,9 @@ const slice = createSlice({
     },
     uriReceived: (user, action) => {
       user.data.uri = action.payload;
+    },
+    userUpdated: (user, action) => {
+      user.data = { ...user.data, ...action.payload };
     },
   },
 });
