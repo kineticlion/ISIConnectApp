@@ -3,10 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Logout from "../components/Logout/Logout";
-
+import { Text } from "react-native";
 const Tab = createBottomTabNavigator();
 
-export default DashboardScreen = ({ navigation, route }) => {
+export default DashboardScreen = ({ navigation }) => {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"

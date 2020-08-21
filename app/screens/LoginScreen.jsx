@@ -29,7 +29,7 @@ export default LoginScreen = ({ navigation }) => {
       //   return;
       //displayAlert("Login Error", "Please check your Email or Password.");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

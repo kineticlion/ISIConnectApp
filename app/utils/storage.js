@@ -9,7 +9,7 @@ export const read = async (setUsername, setPassword, setSwitchValue) => {
     setPassword(myJson.password);
     setSwitchValue(myJson.switchValue);
   } catch (e) {
-    console.log(e);
+    //console.log(e);
   }
 };
 
