@@ -12,8 +12,9 @@ import { View, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
 import CreateVoteButton from "./app/components/Vote/CreateVoteButton";
 import CreateVote from "./app/components/Vote/CreateVote";
+import VotingScreen from "./app/screens/VotingScreen";
 const store = configureStore();
-
+console.log("STORE VALUE", store.getState());
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -70,6 +71,7 @@ export default function App() {
           />
           <Stack.Screen name="Edit Profile" component={EditProfile} />
           <Stack.Screen name="Create Vote" component={CreateVote} />
+          <Stack.Screen name="Voting Screen" component={VotingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

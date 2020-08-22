@@ -25,7 +25,8 @@ const Profile = (props) => {
           <View
             style={{
               margin: 20,
-              width: "60%",
+              width: "50%",
+              maxWidth: "50%",
               alignItems: "flex-start",
               justifyContent: "center",
             }}

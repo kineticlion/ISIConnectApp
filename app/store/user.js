@@ -22,20 +22,11 @@ const slice = createSlice({
     userUpdated: (user, action) => {
       user.data = { ...user.data, ...action.payload };
     },
+    userCreatedVote: (user, action) => {
+      user.votes.push(action.payload);
+    },
   },
 });
 
 export default slice.reducer;
-export const { userRequested, userReceived } = slice.actions;
-
-//Action Creators
-
-export const loadUser = () => (dispatch) => {
-  dispatch(
-    apiCallBegan({
-      url: "/bugs",
-      onStart: userRequested.type,
-      onSuccess: userReceived.type,
-    })
-  );
-};
+export const { userRequested, userReceived, userCreatedVote } = slice.actions;

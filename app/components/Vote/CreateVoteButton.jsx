@@ -6,7 +6,7 @@ const CreateVoteButton = () => {
   const navigation = useNavigation();
   return (
     <Text
-      style={{ fontSize: 18, color: "red", fontWeight: "500" }}
+      style={{ fontSize: 17, color: "red", fontWeight: "500" }}
       onPress={() => navigation.navigate("Create Vote")}
     >
       Create
