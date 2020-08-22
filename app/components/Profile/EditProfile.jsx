@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const EditProfile = (props) => {
   const {
@@ -40,57 +41,58 @@ const EditProfile = (props) => {
 
   const handleData = async () => {
     await updateUser(formuserName, formLastName, formPhone, formZipcode);
-    navigation.navigate("Dashboard");
+    navigation.navigate("Profile");
     displayAlert("Profile", "Information was successfully saved.");
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding">
-      <View style={styles.container}>
-        <View style={styles.imageSection}>
-          <TouchableOpacity onPress={handleImage}>
-            <Avatar.Image source={uri ? uri : imageURI} size={250} />
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TextInput
-            mode="outlined"
-            value={formuserName}
-            onChangeText={(formuserName) => setUserName(formuserName)}
-            style={styles.input}
-          />
-          <TextInput
-            mode="outlined"
-            value={formLastName}
-            onChangeText={(formLastName) => setLastName(formLastName)}
-            style={styles.input}
-          />
-          <TextInput
-            mode="outlined"
-            onChangeText={(formPhone) => setPhone(formPhone)}
-            value={formPhone + ""}
-            style={styles.input}
-          />
-          <TextInput
-            mode="outlined"
-            value={formZipcode}
-            onChangeText={(formZipcode) => setZipcode(formZipcode)}
-            style={styles.input}
-          />
-          <View style={{ alignItems: "center" }}>
-            <Button
-              dark={true}
-              style={styles.saveBtn}
-              color="red"
-              mode="contained"
-              onPress={handleData}
-            >
-              Save
-            </Button>
-          </View>
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >
+      <View style={styles.imageSection}>
+        <TouchableOpacity onPress={handleImage}>
+          <Avatar.Image source={uri ? uri : imageURI} size={200} />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TextInput
+          mode="outlined"
+          value={formuserName}
+          onChangeText={(formuserName) => setUserName(formuserName)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          value={formLastName}
+          onChangeText={(formLastName) => setLastName(formLastName)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          onChangeText={(formPhone) => setPhone(formPhone)}
+          value={formPhone + ""}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          value={formZipcode}
+          onChangeText={(formZipcode) => setZipcode(formZipcode)}
+          style={styles.input}
+        />
+        <View style={{ alignItems: "center" }}>
+          <Button
+            dark={true}
+            style={styles.saveBtn}
+            color="red"
+            mode="contained"
+            onPress={handleData}
+          >
+            Save
+          </Button>
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -120,11 +122,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "space-between",
-    margin: 20,
+    margin: 70,
+    justifyContent: "center",
   },
   imageSection: {
     alignItems: "center",
+    marginTop: "30%",
   },
   input: {
     marginTop: 15,

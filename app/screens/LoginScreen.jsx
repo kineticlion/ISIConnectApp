@@ -18,7 +18,7 @@ export default LoginScreen = ({ navigation }) => {
       setSpinnerStatus(true);
       setTimeout(() => {
         rememberUser(username, password, switchValue);
-        navigation.replace("Dashboard");
+        navigation.replace("Profile");
         setSpinnerStatus(false);
         return;
       }, 400);
@@ -31,10 +31,6 @@ export default LoginScreen = ({ navigation }) => {
     } catch (err) {
       // console.log(err);
     }
-  };
-
-  const displayAlert = (title, msg, buttons = []) => {
-    return Alert.alert(title, msg);
   };
 
   return (

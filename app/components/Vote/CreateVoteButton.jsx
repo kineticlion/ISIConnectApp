@@ -2,15 +2,15 @@ import React from "react";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const EditProfileButton = () => {
+const CreateVoteButton = () => {
   const navigation = useNavigation();
   return (
     <Text
       style={{ fontSize: 18, color: "red", fontWeight: "500" }}
-      onPress={() => navigation.navigate("Edit Profile")}
+      onPress={() => navigation.navigate("Create Vote")}
     >
-      Edit
+      Create
     </Text>
   );
 };
-export default EditProfileButton;
+export default CreateVoteButton;

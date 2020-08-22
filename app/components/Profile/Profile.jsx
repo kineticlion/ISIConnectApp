@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import {
   Avatar,
   Title,
@@ -20,18 +20,18 @@ const Profile = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoSection}>
-        <View style={{ flexDirection: "row" }}>
-          <Avatar.Image source={uri ? uri : imageURI} size={120} />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Avatar.Image source={uri ? uri : imageURI} size={130} />
           <View
             style={{
-              marginLeft: 10,
+              margin: 20,
+              width: "60%",
               alignItems: "flex-start",
               justifyContent: "center",
             }}
           >
-            <Title>
-              {firstName} {lastName}
-            </Title>
+            <Title>{firstName}</Title>
+            <Title>{lastName}</Title>
             <Caption>{id}</Caption>
             <Caption>{type}</Caption>
           </View>
@@ -75,9 +75,11 @@ const mapDispatchToProps = (dispatch) => ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: 10,
+    justifyContent: "space-around",
   },
   userInfoSection: {
-    margin: 25,
+    margin: 15,
   },
   row: {
     flexDirection: "row",
