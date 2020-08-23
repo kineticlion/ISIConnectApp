@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Login from "../components/LoginScreen/LoginScreen";
 import { Alert } from "react-native";
+
+import Login from "../components/LoginScreen/LoginScreen";
 import { read, rememberUser } from "../utils/storage";
 import Api from "../api/Api";
+
 export default LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

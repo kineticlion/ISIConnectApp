@@ -143,15 +143,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     margin: "10%",
     justifyContent: "center",
   },
   imageSection: {
     alignItems: "center",
-    marginTop: "25%",
+    marginTop: "20%",
   },
   input: {
-    marginTop: 15,
+    marginTop: "2%",
+    height: 50,
   },
   infoText: {
     marginLeft: 10,

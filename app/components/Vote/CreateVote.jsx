@@ -1,9 +1,9 @@
+import { useState } from "react";
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInput, Button, RadioButton } from "react-native-paper";
 import { connect } from "react-redux";
-import { useState } from "react";
 
 const CreateVote = ({ firstName, lastName, createVote, navigation }) => {
   const [voteTitle, setVoteTitle] = useState("");

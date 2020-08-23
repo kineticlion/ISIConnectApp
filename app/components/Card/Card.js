@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Text, View } from "react-native";
 import Icon from "react-native-dynamic-vector-icons";
 import TextInput from "react-native-improved-text-input";
+
 import styles, { _textStyle, _textInputStyle } from "./Card.style";
 
 const Card = (props) => {

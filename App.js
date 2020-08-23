@@ -1,20 +1,21 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { BlurView } from "expo-blur";
+import { Provider } from "react-redux";
+
 import SplashScreen from "./app/screens/SplashScreen";
 import LoginScreen from "./app/screens/LoginScreen";
 import ProfileScreen from "./app/screens/ProfileScreen";
 import EditProfile from "./app/components/Profile/EditProfile";
-import EditProfileButton from "./app/components/Profile/EditProfileButton";
-import configureStore from "./app/store/store";
-import { Provider } from "react-redux";
-import { View, StyleSheet } from "react-native";
-import { BlurView } from "expo-blur";
-import CreateVoteButton from "./app/components/Vote/CreateVoteButton";
 import CreateVote from "./app/components/Vote/CreateVote";
 import VotingScreen from "./app/screens/VotingScreen";
+import configureStore from "./app/store/store";
+import { generateStackHeaders } from "./app/utils/component";
+
 const store = configureStore();
-console.log("STORE VALUE", store.getState());
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -44,30 +45,7 @@ export default function App() {
           <Stack.Screen
             name="Profile"
             component={ProfileScreen}
-            options={({ route }) => ({
-              title: !route.state
-                ? "Profile"
-                : route.state.routeNames[route.state.index],
-              headerRight: () => {
-                let headerTitle = !route.state
-                  ? "Profile"
-                  : route.state.routeNames[route.state.index];
-                switch (headerTitle) {
-                  case "Profile":
-                    return (
-                      <View style={{ marginRight: 40 }}>
-                        <EditProfileButton />
-                      </View>
-                    );
-                  case "Vote":
-                    return (
-                      <View style={{ marginRight: 40 }}>
-                        <CreateVoteButton />
-                      </View>
-                    );
-                }
-              },
-            })}
+            options={({ route }) => generateStackHeaders(route)}
           />
           <Stack.Screen name="Edit Profile" component={EditProfile} />
           <Stack.Screen name="Create Vote" component={CreateVote} />

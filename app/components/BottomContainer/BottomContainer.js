@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Text, View, TouchableOpacity, StyleSheet } from "react-native";
-import Card from "../Card/Card";
 import Icon from "react-native-dynamic-vector-icons";
+
+import Card from "../Card/Card";
 import styles, { container } from "./BottomContainer.style";
 
 const BottomContainer = (props) => {

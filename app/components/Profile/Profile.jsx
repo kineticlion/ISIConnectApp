@@ -1,15 +1,7 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Text,
-  TouchableRipple,
-} from "react-native-paper";
-import { pickImage, getCameraRollPermission } from "../../utils/device";
+import { View, StyleSheet } from "react-native";
+import { Avatar, Title, Caption, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
 const Profile = (props) => {

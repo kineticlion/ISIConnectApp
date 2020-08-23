@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/Ionicons";
+
 import Dashboard from "../components/Dashboard/Dashboard";
 import Logout from "../components/Logout/Logout";
 import VotingScreen from "./VotingScreen";

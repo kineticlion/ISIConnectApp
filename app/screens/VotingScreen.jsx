@@ -1,7 +1,8 @@
 import React from "react";
 import { View, FlatList, StyleSheet, SafeAreaView } from "react-native";
-import VoteCard from "../components/Vote/VoteCard";
 import { connect } from "react-redux";
+
+import VoteCard from "../components/Vote/VoteCard";
 
 const VotingScreen = ({ votes }) => {
   return (

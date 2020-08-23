@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import entities from "./entities";
 
 const slice = createSlice({
   name: "vote",
