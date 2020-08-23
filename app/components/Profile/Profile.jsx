@@ -27,12 +27,11 @@ const Profile = (props) => {
               margin: 20,
               width: "50%",
               maxWidth: "50%",
-              alignItems: "flex-start",
-              justifyContent: "center",
             }}
           >
-            <Title>{firstName}</Title>
-            <Title>{lastName}</Title>
+            <Title>
+              {firstName} {lastName}
+            </Title>
             <Caption>{id}</Caption>
             <Caption>{type}</Caption>
           </View>
@@ -76,8 +75,8 @@ const mapDispatchToProps = (dispatch) => ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-    justifyContent: "space-around",
+    margin: 15,
+    marginTop: "25%",
   },
   userInfoSection: {
     margin: 15,

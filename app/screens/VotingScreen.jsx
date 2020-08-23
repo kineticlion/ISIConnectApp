@@ -9,7 +9,11 @@ const VotingScreen = ({ votes }) => {
       <FlatList
         data={votes}
         renderItem={({ item }) => (
-          <VoteCard title={item.title} author={item.author} />
+          <VoteCard
+            title={item.title}
+            author={item.author}
+            date={item.creationDate}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
@@ -19,7 +23,7 @@ const VotingScreen = ({ votes }) => {
 
 const mapStateToProps = (state) => {
   return {
-    votes: state.entities.user.votes,
+    votes: state.entities.vote,
   };
 };
 

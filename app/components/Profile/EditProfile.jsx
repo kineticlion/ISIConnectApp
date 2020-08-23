@@ -1,17 +1,17 @@
 import React from "react";
-import { View, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Avatar, TextInput, Button } from "react-native-paper";
 import {
   pickImage,
   getCameraRollPermission,
-  displayAlert,
+  asyncAlert,
 } from "../../utils/device";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
+import { useEffect } from "react";
+import { useIsMount } from "../../utils/component";
 const EditProfile = (props) => {
   const {
     uri,
@@ -29,8 +29,16 @@ const EditProfile = (props) => {
   const [formLastName, setLastName] = useState(lastName);
   const [formPhone, setPhone] = useState(phone);
   const [formZipcode, setZipcode] = useState(zipcode);
-
+  const [formEmail, setEmail] = useState(email);
+  const [formUpdated, setFormUpdated] = useState(false);
   const imageURI = { uri: "https://i.ibb.co/xmZGsky/portrait.jpg" };
+  const isMount = useIsMount();
+
+  useEffect(() => {
+    if (isMount) return;
+    if (formUpdated) return;
+    setFormUpdated(true);
+  }, [formuserName, formLastName, formPhone, formZipcode, formEmail]);
 
   const handleImage = async () => {
     const permission = getCameraRollPermission();
@@ -40,9 +48,15 @@ const EditProfile = (props) => {
   };
 
   const handleData = async () => {
-    await updateUser(formuserName, formLastName, formPhone, formZipcode);
-    navigation.navigate("Profile");
-    displayAlert("Profile", "Information was successfully saved.");
+    await updateUser(
+      formuserName,
+      formLastName,
+      formPhone,
+      formEmail,
+      formZipcode
+    );
+    await asyncAlert("Profile", "Information Saved Successfully.");
+    navigation.goBack();
   };
 
   return (
@@ -76,6 +90,12 @@ const EditProfile = (props) => {
         />
         <TextInput
           mode="outlined"
+          value={formEmail}
+          onChangeText={(formEmail) => setEmail(formEmail)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
           value={formZipcode}
           onChangeText={(formZipcode) => setZipcode(formZipcode)}
           style={styles.input}
@@ -87,6 +107,7 @@ const EditProfile = (props) => {
             color="red"
             mode="contained"
             onPress={handleData}
+            disabled={!formUpdated}
           >
             Save
           </Button>
@@ -110,10 +131,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: (firstName, lastName, phone, zipcode) =>
+  updateUser: (firstName, lastName, phone, email, zipcode) =>
     dispatch({
       type: "user/userUpdated",
-      payload: { firstName, lastName, phone, zipcode },
+      payload: { firstName, lastName, phone, email, zipcode },
     }),
   saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
 });
@@ -122,12 +143,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
 
 const styles = StyleSheet.create({
   container: {
-    margin: 70,
+    margin: "10%",
     justifyContent: "center",
   },
   imageSection: {
     alignItems: "center",
-    marginTop: "30%",
+    marginTop: "25%",
   },
   input: {
     marginTop: 15,

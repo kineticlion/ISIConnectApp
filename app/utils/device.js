@@ -20,9 +20,22 @@ export const pickImage = async () => {
   }
 };
 
-export const displayAlert = (title, msg, buttons = []) => {
-  return Alert.alert(title, msg);
-};
+export const asyncAlert = (title, msg) =>
+  new Promise((resolve) => {
+    Alert.alert(
+      title,
+      msg,
+      [
+        {
+          text: "ok",
+          onPress: () => {
+            resolve("YES");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  });
 
 export const getCameraRollPermission = async () => {
   const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);

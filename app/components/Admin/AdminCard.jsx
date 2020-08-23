@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card, Title, Paragraph, Caption } from "react-native-paper";
 
-const VoteCard = ({ title, author, date }) => (
+const AdminCard = ({ title, author, date }) => (
   <Card style={{ margin: 30, marginTop: 20, alignItems: "flex-start" }}>
     <Card.Content>
       <Title>{title}</Title>
@@ -11,4 +11,4 @@ const VoteCard = ({ title, author, date }) => (
   </Card>
 );
 
-export default VoteCard;
+export default AdminCard;
