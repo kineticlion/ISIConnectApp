@@ -32,14 +32,14 @@ const CreateVote = ({ firstName, lastName, createVote, navigation }) => {
           onValueChange={(value) => setChecked(value)}
           value={checked}
         >
-          <View>
+          {/* <View>
             <Text>First</Text>
             <RadioButton value="first" />
           </View>
           <View>
             <Text>Second</Text>
             <RadioButton value="second" />
-          </View>
+          </View> */}
         </RadioButton.Group>
       </View>
       <View style={{ alignItems: "center" }}>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Card, Title, Paragraph, Caption } from "react-native-paper";
 
 const VoteCard = ({ title, author, date }) => (
-  <Card style={{ margin: 30, marginTop: 20, alignItems: "flex-start" }}>
+  <Card style={{ margin: "5%" }}>
     <Card.Content>
       <Title>{title}</Title>
       <Caption>Created By : {author}</Caption>

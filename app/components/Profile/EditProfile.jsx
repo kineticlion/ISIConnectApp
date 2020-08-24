@@ -1,17 +1,19 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Avatar, TextInput, Button } from "react-native-paper";
-import {
-  pickImage,
-  getCameraRollPermission,
-  asyncAlert,
-} from "../../utils/device";
 import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useEffect } from "react";
+
 import { useIsMount } from "../../utils/component";
+import {
+  pickImage,
+  getCameraRollPermission,
+  asyncAlert,
+} from "../../utils/device";
+
 const EditProfile = (props) => {
   const {
     uri,

@@ -1,27 +1,36 @@
 import React from "react";
 import { Text, SafeAreaView, FlatList, StyleSheet } from "react-native";
+import AdminCard from "../components/Admin/AdminCard";
+import { connect } from "react-redux";
 
 const AdminScreen = ({ admins }) => {
   return (
-    <SafeAreaView style={style.container}>
-      <Text>HI</Text>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        numColumns={2}
+        data={admins}
+        renderItem={({ item }) => (
+          <AdminCard firstName={item.firstName} lastName={item.lastName} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
     </SafeAreaView>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    admins: state.entities.admins,
+    admins: state.entities.admin,
   };
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
+    marginTop: "21%",
     flex: 1,
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
-    marginTop: "20%",
   },
 });
 
-export default AdminScreen;
+export default connect(mapStateToProps)(AdminScreen);
