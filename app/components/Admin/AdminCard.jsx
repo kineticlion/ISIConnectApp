@@ -9,8 +9,8 @@ import {
 } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const AdminCard = ({ firstName, lastName }) => {
-  const imageURI = { uri: "https://i.ibb.co/GpmHSDd/avatar.jpg" };
+const AdminCard = ({ uri, firstName, lastName }) => {
+  const image = uri ? uri : "https://i.ibb.co/GpmHSDd/avatar.jpg";
   return (
     <Card
       style={{
@@ -20,9 +20,13 @@ const AdminCard = ({ firstName, lastName }) => {
         backgroundColor: "transparent",
       }}
     >
-      <TouchableOpacity style={{ marginVertical: "0%" }}>
+      <TouchableOpacity>
         <Card.Content style={{ alignItems: "center" }}>
-          <Avatar.Image source={imageURI} size={130} />
+          <Avatar.Image
+            source={{ uri: image }}
+            size={130}
+            style={{ backgroundColor: "transparent" }}
+          />
           <Caption style={{ fontSize: 14 }}>
             {firstName} {lastName}
           </Caption>

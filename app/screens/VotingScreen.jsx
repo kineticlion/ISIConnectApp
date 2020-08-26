@@ -1,13 +1,38 @@
-import React from "react";
-import { View, FlatList, StyleSheet, SafeAreaView } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
 import { connect } from "react-redux";
 
 import VoteCard from "../components/Vote/VoteCard";
 
 const VotingScreen = ({ votes }) => {
-  return (
-    <SafeAreaView style={style.container}>
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  return isLoading ? (
+    <ActivityIndicator
+      style={[
+        styles.container,
+        { justifyContent: "center", alignItems: "center" },
+      ]}
+      size={"large"}
+      color="red"
+    />
+  ) : (
+    <SafeAreaView style={styles.container}>
       <FlatList
+        initialNumToRender={5}
         data={votes}
         renderItem={({ item }) => (
           <VoteCard
@@ -16,6 +41,21 @@ const VotingScreen = ({ votes }) => {
             date={item.creationDate}
           />
         )}
+        refreshControl={
+          <RefreshControl
+            onRefresh={() => {
+              setIsFetching(true);
+              setTimeout(() => {
+                setIsFetching(false);
+              }, 3000);
+            }}
+            title="Pull to refresh"
+            tintColor="red"
+            titleColor="red"
+            colors={"red"}
+            refreshing={isFetching}
+          />
+        }
         keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
@@ -39,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(VotingScreen);
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "stretch",

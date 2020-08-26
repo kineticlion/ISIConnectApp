@@ -4,6 +4,7 @@ import { View } from "react-native";
 
 import EditProfileButton from "../components/Profile/EditProfileButton";
 import CreateVoteButton from "../components/Vote/CreateVoteButton";
+import CreateAdminButton from "../components/Admin/CreateAdminButton";
 
 export const useIsMount = () => {
   const isMountRef = useRef(true);
@@ -31,6 +32,12 @@ export const generateStackHeaders = (route) => {
           return (
             <View style={{ marginRight: 40 }}>
               <CreateVoteButton />
+            </View>
+          );
+        case "Admin":
+          return (
+            <View style={{ marginRight: 40 }}>
+              <CreateAdminButton />
             </View>
           );
       }

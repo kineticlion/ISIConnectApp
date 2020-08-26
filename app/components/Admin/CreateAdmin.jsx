@@ -1,7 +1,166 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Avatar, Caption, TextInput, Button } from "react-native-paper";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { connect } from "react-redux";
 
-const CreateAdmin = () => {
-  return <></>;
+import {
+  pickImage,
+  getCameraRollPermission,
+  asyncAlert,
+} from "../../utils/device";
+import { useIsMount } from "../../utils/component";
+
+const URI = "https://i.ibb.co/GpmHSDd/avatar.jpg";
+
+const CreateAdmin = ({ addAdmin, navigation }) => {
+  const [formFirstName, setFirstName] = useState("");
+  const [formLastName, setLastName] = useState("");
+  const [formPhone, setPhone] = useState(null);
+  const [formZipcode, setZipcode] = useState(null);
+  const [formEmail, setEmail] = useState("");
+  const [formUpdated, setFormUpdated] = useState(false);
+  const [imageURI, setImageUri] = useState(URI);
+  const isMount = useIsMount();
+
+  useEffect(() => {
+    if (isMount) return;
+    if (formUpdated) return;
+    if (!formLastName || !formFirstName) return;
+    setFormUpdated(true);
+  }, [formFirstName, formLastName, formPhone, formZipcode, formEmail]);
+
+  const handleImage = async () => {
+    const permission = getCameraRollPermission();
+    if (!permission) return;
+    const { uri } = await pickImage();
+    if (uri) setImageUri(uri);
+  };
+
+  const handleSubmit = async () => {
+    await addAdmin(imageURI, formFirstName, formLastName);
+    asyncAlert("Admin", "Admin successfully created.");
+    navigation.goBack();
+  };
+
+  return (
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >
+      <View style={styles.imageSection}>
+        <TouchableOpacity onPress={handleImage}>
+          <Avatar.Image
+            source={{ uri: imageURI }}
+            size={200}
+            style={{ backgroundColor: "transparent" }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TextInput
+          mode="outlined"
+          placeholder="First Name"
+          value={formFirstName}
+          onChangeText={(formFirstName) => setFirstName(formFirstName)}
+          style={styles.input}
+        />
+      </View>
+      <View>
+        <TextInput
+          mode="outlined"
+          placeholder="Last Name"
+          value={formLastName}
+          onChangeText={(formLastName) => setLastName(formLastName)}
+          style={styles.input}
+        />
+      </View>
+      {/*
+        <TextInput
+          mode="outlined"
+          value={formLastName}
+          onChangeText={(formLastName) => setLastName(formLastName)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          onChangeText={(formPhone) => setPhone(formPhone)}
+          value={formPhone + ""}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          value={formEmail}
+          onChangeText={(formEmail) => setEmail(formEmail)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          value={formZipcode}
+          onChangeText={(formZipcode) => setZipcode(formZipcode)}
+          style={styles.input}
+        />
+      */}
+      <View style={{ alignItems: "center" }}>
+        <Button
+          dark={true}
+          style={styles.saveBtn}
+          color="red"
+          mode="contained"
+          disabled={!formUpdated}
+          onPress={handleSubmit}
+        >
+          Save
+        </Button>
+      </View>
+    </KeyboardAwareScrollView>
+  );
 };
 
-export default CreateAdmin;
+const mapStateToProps = (state) => {
+  return {
+    votes: state.entities.vote,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addAdmin: (uri, firstName, lastName) =>
+    dispatch({
+      type: "admin/adminCreated",
+      payload: { id: Date.now(), uri, firstName, lastName },
+    }),
+  //   updateUser: (firstName, lastName, phone, zipcode) =>
+  //     dispatch({
+  //       type: "user/userUpdated",
+  //       payload: { firstName, lastName, phone, zipcode },
+  //     }),
+  //   saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateAdmin);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    margin: "10%",
+    justifyContent: "center",
+  },
+  imageSection: {
+    alignItems: "center",
+    marginTop: "20%",
+  },
+  input: {
+    marginTop: "2%",
+    height: 50,
+  },
+  infoText: {
+    marginLeft: 10,
+  },
+  saveBtn: {
+    marginTop: 30,
+    height: 50,
+    width: 100,
+    justifyContent: "center",
+  },
+});

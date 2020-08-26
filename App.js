@@ -13,6 +13,7 @@ import CreateVote from "./app/components/Vote/CreateVote";
 import VotingScreen from "./app/screens/VotingScreen";
 import configureStore from "./app/store/store";
 import { generateStackHeaders } from "./app/utils/component";
+import CreateAdmin from "./app/components/Admin/CreateAdmin";
 
 const store = configureStore();
 
@@ -50,6 +51,7 @@ export default function App() {
           <Stack.Screen name="Edit Profile" component={EditProfile} />
           <Stack.Screen name="Create Vote" component={CreateVote} />
           <Stack.Screen name="Voting Screen" component={VotingScreen} />
+          <Stack.Screen name="Create Admin" component={CreateAdmin} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

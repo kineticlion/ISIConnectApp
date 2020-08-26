@@ -37,10 +37,11 @@ export default LoginScreen = ({ navigation }) => {
 
   return (
     <Login
-      source={require("../assets/appimages/background.jpg")}
+      source={null}
       spinnerEnable={true}
       spinnerVisibility={spinnerStatus}
       spinnerSize="large"
+      spinnerColor="red"
       switchValue={switchValue}
       onSwitchValueChange={() => setSwitchValue(!switchValue)}
       onPressLogin={handleVerification}
