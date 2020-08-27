@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import {
   ActivityIndicator,
   RefreshControl,
-  Text,
   SafeAreaView,
   FlatList,
   StyleSheet,
 } from "react-native";
 import { connect } from "react-redux";
 import { useEffect } from "react";
+import { Modal, Portal, Provider, Text, Button } from "react-native-paper";
 
 import AdminCard from "../components/Admin/AdminCard";
-
 const AdminScreen = ({ admins }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,11 +37,16 @@ const AdminScreen = ({ admins }) => {
         numColumns={2}
         data={admins}
         renderItem={({ item }) => (
-          <AdminCard
-            uri={item.uri}
-            firstName={item.firstName}
-            lastName={item.lastName}
-          />
+          <>
+            <AdminCard
+              id={item.id}
+              uri={item.uri}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              displayCard={setModalVisible}
+              isCardVisible={modalVisible}
+            />
+          </>
         )}
         keyExtractor={(item) => item.id}
         initialNumToRender={8}

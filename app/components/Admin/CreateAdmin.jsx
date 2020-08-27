@@ -23,15 +23,24 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
   const [formZipcode, setZipcode] = useState(null);
   const [formEmail, setEmail] = useState("");
   const [formUpdated, setFormUpdated] = useState(false);
+  const [formUsername, setUsername] = useState("");
+  const [formPassword, setPassword] = useState("");
   const [imageURI, setImageUri] = useState(URI);
   const isMount = useIsMount();
 
   useEffect(() => {
     if (isMount) return;
     if (formUpdated) return;
-    if (!formLastName || !formFirstName) return;
+    if (
+      !formLastName ||
+      !formFirstName ||
+      !formUsername ||
+      !formPassword ||
+      !formEmail
+    )
+      return;
     setFormUpdated(true);
-  }, [formFirstName, formLastName, formPhone, formZipcode, formEmail]);
+  }, [formFirstName, formLastName, formEmail, formUsername, formPassword]);
 
   const handleImage = async () => {
     const permission = getCameraRollPermission();
@@ -50,10 +59,12 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
     await Api.insert(
       formFirstName,
       formLastName,
-      "Sufiyan@gmail.com",
-      "Sufiyan",
-      "Sufiyan",
-      1
+      formEmail,
+      formZipcode,
+      formUsername,
+      formPassword,
+      Config.userTypes.admin,
+      formPhone
     );
     await asyncAlert("Admin", "Admin Created Successfully");
     navigation.goBack();
@@ -81,13 +92,47 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
           onChangeText={(formFirstName) => setFirstName(formFirstName)}
           style={styles.input}
         />
-      </View>
-      <View>
         <TextInput
           mode="outlined"
           placeholder="Last Name"
           value={formLastName}
           onChangeText={(formLastName) => setLastName(formLastName)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          placeholder="Phone"
+          value={formPhone}
+          onChangeText={(formPhone) => setPhone(formPhone)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          placeholder="Email"
+          value={formEmail}
+          onChangeText={(formEmail) => setEmail(formEmail)}
+          style={styles.input}
+        />
+
+        <TextInput
+          mode="outlined"
+          placeholder="Zipcode"
+          value={formZipcode}
+          onChangeText={(formZipcode) => setZipcode(formZipcode)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          placeholder="Username"
+          value={formUsername}
+          onChangeText={(formUsername) => setUsername(formUsername)}
+          style={styles.input}
+        />
+        <TextInput
+          mode="outlined"
+          placeholder="Password"
+          value={formPassword}
+          onChangeText={(formPassword) => setPassword(formPassword)}
           style={styles.input}
         />
       </View>

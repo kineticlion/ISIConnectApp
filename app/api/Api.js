@@ -1,4 +1,5 @@
 import Config from "../../config";
+import { asyncAlert } from "../utils/device";
 
 export default class Api {
   static async login(username, password) {
@@ -21,19 +22,23 @@ export default class Api {
     firstName,
     lastName,
     email,
+    zipcode,
     userName,
     password,
-    userType
+    userType,
+    phone
   ) {
     const options = {
       method: "POST",
       body: JSON.stringify({
-        fname: firstName,
+        f_name: firstName,
         lname: lastName,
         email,
+        phone,
+        zip: zipcode,
         u_name: userName.toLowerCase(),
-        pwd: password,
-        type: userType,
+        u_pwd: password,
+        u_type: userType,
       }),
       headers: {
         "Content-Type": "application/json",
