@@ -2,12 +2,11 @@ import { ScreenWidth } from "@freakycoder/react-native-helpers";
 
 export default {
   container: {
-    marginTop: 18,
     alignItems: "center",
     justifyContent: "center",
   },
   textStyle: {
-    fontSize: 30,
+    fontSize: 20,
     color: "white",
   },
   row: {

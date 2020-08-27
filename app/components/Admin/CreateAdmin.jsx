@@ -11,6 +11,8 @@ import {
   asyncAlert,
 } from "../../utils/device";
 import { useIsMount } from "../../utils/component";
+import Api from "../../api/Api";
+import Config from "../../../config";
 
 const URI = "https://i.ibb.co/GpmHSDd/avatar.jpg";
 
@@ -40,7 +42,20 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
 
   const handleSubmit = async () => {
     await addAdmin(imageURI, formFirstName, formLastName);
-    asyncAlert("Admin", "Admin successfully created.");
+    await asyncAlert("Admin", "Admin successfully created.");
+    navigation.goBack();
+  };
+
+  const handleInsert = async () => {
+    await Api.insert(
+      formFirstName,
+      formLastName,
+      "Sufiyan@gmail.com",
+      "Sufiyan",
+      "Sufiyan",
+      1
+    );
+    await asyncAlert("Admin", "Admin Created Successfully");
     navigation.goBack();
   };
 
@@ -109,7 +124,7 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
           color="red"
           mode="contained"
           disabled={!formUpdated}
-          onPress={handleSubmit}
+          onPress={handleInsert}
         >
           Save
         </Button>

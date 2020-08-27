@@ -40,6 +40,12 @@ export const generateStackHeaders = (route) => {
               <CreateAdminButton />
             </View>
           );
+        case "Feedback":
+          return (
+            <View style={{ marginRight: 40 }}>
+              <CreateAdminButton />
+            </View>
+          );
       }
     },
   };

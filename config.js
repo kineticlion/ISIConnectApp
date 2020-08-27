@@ -1,6 +1,11 @@
 export default Config = {
-  BASEURL: "http://connect-isi.herokuapp.com",
+  BASEURL: "https://connect-isi.herokuapp.com",
   routes: {
-    postImage: "http://connect-isi.herokuapp.com/insertuser",
+    insertUser: "https://connect-isi.herokuapp.com/insertuser",
+  },
+  userTypes: {
+    superAdmin: 1,
+    admin: 2,
+    student: 3,
   },
 };

@@ -55,8 +55,8 @@ const AdminScreen = ({ admins }) => {
             }}
             title="Pull to refresh"
             tintColor="red"
-            titleColor="red"
-            colors={"red"}
+            titleColor="#FF0000"
+            colors={["#FF0000"]}
             refreshing={isFetching}
           />
         }

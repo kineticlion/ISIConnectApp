@@ -14,6 +14,7 @@ import VotingScreen from "./app/screens/VotingScreen";
 import configureStore from "./app/store/store";
 import { generateStackHeaders } from "./app/utils/component";
 import CreateAdmin from "./app/components/Admin/CreateAdmin";
+import FeedbackScreen from "./app/screens/FeedbackScreen";
 
 const store = configureStore();
 
@@ -38,6 +39,9 @@ export default function App() {
             component={SplashScreen}
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="FeedBackScreen" component={FeedbackScreen} />
+          <Stack.Screen name="Voting Screen" component={VotingScreen} />
+          <Stack.Screen name="Create Vote" component={CreateVote} />
           <Stack.Screen
             name="Login"
             component={LoginScreen}
@@ -49,8 +53,6 @@ export default function App() {
             options={({ route }) => generateStackHeaders(route)}
           />
           <Stack.Screen name="Edit Profile" component={EditProfile} />
-          <Stack.Screen name="Create Vote" component={CreateVote} />
-          <Stack.Screen name="Voting Screen" component={VotingScreen} />
           <Stack.Screen name="Create Admin" component={CreateAdmin} />
         </Stack.Navigator>
       </NavigationContainer>

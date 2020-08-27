@@ -10,7 +10,7 @@ export const container = (loginButtonBackgroundColor) => {
     marginBottom: 32,
     width: ScreenWidth,
     height: ScreenHeight,
-    backgroundColor: loginButtonBackgroundColor,
+    backgroundColor: "black",
   };
 };
 
@@ -23,7 +23,7 @@ export default {
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    bottom: isIPhoneXFamily() ? 24 : 12,
+    bottom: isIPhoneXFamily() ? "11%" : "8%",
   },
   loginButtonStyle: {
     left: 0,
@@ -33,7 +33,7 @@ export default {
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    bottom: isIPhoneXFamily() ? 24 : 12,
+    bottom: isIPhoneXFamily() ? "10%" : "10%",
   },
   loginButtonTextStyle: {
     color: "white",
