@@ -1,6 +1,7 @@
 import * as SecureStore from "expo-secure-store";
+import { asyncAlert } from "./device";
 
-export const read = async (setUsername, setPassword, setSwitchValue) => {
+export const readUser = async (setUsername, setPassword, setSwitchValue) => {
   try {
     const credentials = await SecureStore.getItemAsync("usercredentials");
     if (!credentials) return;
@@ -13,9 +14,22 @@ export const read = async (setUsername, setPassword, setSwitchValue) => {
   }
 };
 
-export const rememberUser = async (username, password, switchValue) => {
-  const credenditials = { username, password, switchValue };
+export const readUserId = async () => {
+  try {
+    const credentials = await SecureStore.getItemAsync("usercredentials");
+    if (!credentials) return;
+    const myJson = JSON.parse(credentials);
+    if (!myJson.id) return;
+    return myJson.id;
+  } catch (e) {
+    asyncAlert("Storage", "User ID not found");
+  }
+};
+
+export const rememberUser = async (id, username, password, switchValue) => {
+  const credenditials = { id, username, password, switchValue };
   if (!switchValue) {
+    credenditials.id = "";
     credenditials.username = "";
     credenditials.password = "";
     credenditials.switchValue = false;

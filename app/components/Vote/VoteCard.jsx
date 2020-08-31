@@ -22,6 +22,20 @@ const VoteCard = ({ title, author, date }) => {
     );
   };
 
+  const renderCards = () => {
+    return (
+      <TouchableOpacity onPress={() => setIsModalVisible(!isModalVisible)}>
+        <Card style={{ margin: "5%" }}>
+          <Card.Content>
+            <Title>{title}</Title>
+            <Caption>Created By : {author}</Caption>
+            <Caption>Date : {date}</Caption>
+          </Card.Content>
+        </Card>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <>
       <Modal visible={isModalVisible} transparent={false}>
@@ -36,7 +50,7 @@ const VoteCard = ({ title, author, date }) => {
         </View>
       </Modal>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {renderCard()}
+        {renderCards()}
       </View>
     </>
   );

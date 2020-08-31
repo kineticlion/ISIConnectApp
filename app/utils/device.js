@@ -2,6 +2,7 @@ import Config from "../../config";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { Alert } from "react-native";
+
 export const pickImage = async () => {
   let result;
   try {
@@ -14,13 +15,13 @@ export const pickImage = async () => {
     if (!result.cancelled) {
       return result;
     }
-    return undefined;
+    return null;
   } catch (error) {
     alert(error);
   }
 };
 
-export const asyncAlert = (title, msg) =>
+export const asyncAlert = (title, msg, button = {}) =>
   new Promise((resolve) => {
     Alert.alert(
       title,
@@ -32,6 +33,7 @@ export const asyncAlert = (title, msg) =>
             resolve("YES");
           },
         },
+        button,
       ],
       { cancelable: false }
     );

@@ -11,16 +11,31 @@ import { useEffect } from "react";
 import { Modal, Portal, Provider, Text, Button } from "react-native-paper";
 
 import AdminCard from "../components/Admin/AdminCard";
-const AdminScreen = ({ admins }) => {
+import Api from "../api/Api";
+import config from "../../config";
+const AdminScreen = ({ admins, removeAdmin, fetchAdmins, saveAdmins }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [adminDeleted, setAdminDeleted] = useState(false);
+  const fetchAdminsFromServer = async () => {
+    const adminsData = await Api.fetchUsersByType(2);
+    saveAdmins(adminsData);
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+    fetchAdmins();
+    fetchAdminsFromServer();
+    setIsLoading(false);
+    if (adminDeleted) setAdminDeleted(false);
+  }, [adminDeleted]);
+
+  const getUri = (uri) => {
+    if (uri === "undefined" || uri === "null") {
+      return config.images.profile.uri;
+    }
+    return uri;
+  };
 
   return isLoading ? (
     <ActivityIndicator
@@ -37,16 +52,20 @@ const AdminScreen = ({ admins }) => {
         numColumns={2}
         data={admins}
         renderItem={({ item }) => (
-          <>
-            <AdminCard
-              id={item.id}
-              uri={item.uri}
-              firstName={item.firstName}
-              lastName={item.lastName}
-              displayCard={setModalVisible}
-              isCardVisible={modalVisible}
-            />
-          </>
+          <AdminCard
+            adminDeleted={setAdminDeleted}
+            id={item.id}
+            uri={getUri(item.uri)}
+            firstName={item.f_name}
+            lastName={item.l_name}
+            displayCard={setModalVisible}
+            isCardVisible={modalVisible}
+            removeAdmin={removeAdmin}
+            userType={item.u_type}
+            phone={item.phone}
+            email={item.email}
+            zip={item.zip}
+          />
         )}
         keyExtractor={(item) => item.id}
         initialNumToRender={8}
@@ -54,9 +73,10 @@ const AdminScreen = ({ admins }) => {
           <RefreshControl
             onRefresh={() => {
               setIsFetching(true);
-              setTimeout(() => {
+              setTimeout(async () => {
+                await fetchAdminsFromServer();
                 setIsFetching(false);
-              }, 3000);
+              }, 500);
             }}
             title="Pull to refresh"
             tintColor="red"
@@ -76,6 +96,28 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchAdmins: () =>
+    dispatch({
+      type: "admin/adminsRequested",
+    }),
+  saveAdmins: (data) => {
+    dispatch({
+      type: "admin/adminsReceived",
+      payload: {
+        data,
+      },
+    });
+  },
+  removeAdmin: (id) =>
+    dispatch({
+      type: "admin/adminRemoved",
+      payload: {
+        id,
+      },
+    }),
+});
+
 const styles = StyleSheet.create({
   container: {
     marginTop: "21%",
@@ -85,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(AdminScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminScreen);

@@ -1,3 +1,4 @@
+import { Text } from "react-native";
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -16,31 +17,23 @@ import Config from "../../../config";
 
 const URI = "https://i.ibb.co/GpmHSDd/avatar.jpg";
 
-const CreateAdmin = ({ addAdmin, navigation }) => {
-  const [formFirstName, setFirstName] = useState("");
-  const [formLastName, setLastName] = useState("");
-  const [formPhone, setPhone] = useState(null);
-  const [formZipcode, setZipcode] = useState(null);
-  const [formEmail, setEmail] = useState("");
-  const [formUpdated, setFormUpdated] = useState(false);
-  const [formUsername, setUsername] = useState("");
-  const [formPassword, setPassword] = useState("");
-  const [imageURI, setImageUri] = useState(URI);
-  const isMount = useIsMount();
+const Form = ({ inputs, avatar }) => {
+  //   const [formFirstName, setFirstName] = useState("");
+  //   const [formLastName, setLastName] = useState("");
+  //   const [formPhone, setPhone] = useState(null);
+  //   const [formZipcode, setZipcode] = useState(null);
 
-  useEffect(() => {
-    if (isMount) return;
-    if (formUpdated) return;
-    if (
-      !formUsername ||
-      !formPassword ||
-      !formEmail ||
-      !formFirstName ||
-      !formLastName
-    )
-      return;
-    setFormUpdated(true);
-  }, [formUsername, formPassword, formEmail, formFirstName, formLastName]);
+  const [formUpdated, setFormUpdated] = useState(true);
+  //   const [formUsername, setUsername] = useState("");
+  //   const [formPassword, setPassword] = useState("");
+  const [imageURI, setImageUri] = useState(URI);
+  //   const isMount = useIsMount();
+  //   useEffect(() => {
+  //     if (isMount) return;
+  //     if (formUpdated) return;
+  //     if (!formUsername || !formPassword) return;
+  //     setFormUpdated(true);
+  //   }, [formUsername, formPassword]);
 
   const handleImage = async () => {
     const permission = getCameraRollPermission();
@@ -51,7 +44,6 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
   };
 
   const handleInsert = async () => {
-    setFormUpdated(false);
     await Api.insert(
       imageURI,
       formFirstName,
@@ -67,11 +59,9 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
     navigation.goBack();
   };
 
-  return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.container}
-      scrollEnabled={true}
-    >
+  const renderAvatar = (avatar) => {
+    if (!avatar) return;
+    return (
       <View style={styles.imageSection}>
         <TouchableOpacity onPress={handleImage}>
           <Avatar.Image
@@ -81,8 +71,20 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
           />
         </TouchableOpacity>
       </View>
+    );
+  };
+
+  return (
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      scrollEnabled={true}
+    >
+      {renderAvatar(avatar)}
       <View>
-        <TextInput
+        {inputs.map((input) => (
+          <TextInput key={input.id} {...input}></TextInput>
+        ))}
+        {/* <TextInput
           mode="outlined"
           placeholder="First Name"
           value={formFirstName}
@@ -121,7 +123,7 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
         <TextInput
           mode="outlined"
           placeholder="Username"
-          value={formUsername.toLowerCase()}
+          value={formUsername}
           onChangeText={(formUsername) => setUsername(formUsername)}
           style={styles.input}
         />
@@ -129,37 +131,36 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
           mode="outlined"
           placeholder="Password"
           value={formPassword}
-          secureTextEntry={true}
           onChangeText={(formPassword) => setPassword(formPassword)}
           style={styles.input}
-        />
+        /> */}
       </View>
       {/*
-        <TextInput
-          mode="outlined"
-          value={formLastName}
-          onChangeText={(formLastName) => setLastName(formLastName)}
-          style={styles.input}
-        />
-        <TextInput
-          mode="outlined"
-          onChangeText={(formPhone) => setPhone(formPhone)}
-          value={formPhone + ""}
-          style={styles.input}
-        />
-        <TextInput
-          mode="outlined"
-          value={formEmail}
-          onChangeText={(formEmail) => setEmail(formEmail)}
-          style={styles.input}
-        />
-        <TextInput
-          mode="outlined"
-          value={formZipcode}
-          onChangeText={(formZipcode) => setZipcode(formZipcode)}
-          style={styles.input}
-        />
-      */}
+    <TextInput
+      mode="outlined"
+      value={formLastName}
+      onChangeText={(formLastName) => setLastName(formLastName)}
+      style={styles.input}
+    />
+    <TextInput
+      mode="outlined"
+      onChangeText={(formPhone) => setPhone(formPhone)}
+      value={formPhone + ""}
+      style={styles.input}
+    />
+    <TextInput
+      mode="outlined"
+      value={formEmail}
+      onChangeText={(formEmail) => setEmail(formEmail)}
+      style={styles.input}
+    />
+    <TextInput
+      mode="outlined"
+      value={formZipcode}
+      onChangeText={(formZipcode) => setZipcode(formZipcode)}
+      style={styles.input}
+    />
+  */}
       <View style={{ alignItems: "center" }}>
         <Button
           dark={true}
@@ -176,27 +177,7 @@ const CreateAdmin = ({ addAdmin, navigation }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    votes: state.entities.vote,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  addAdmin: (uri, firstName, lastName) =>
-    dispatch({
-      type: "admin/adminCreated",
-      payload: { id: Date.now(), uri, firstName, lastName },
-    }),
-  //   updateUser: (firstName, lastName, phone, zipcode) =>
-  //     dispatch({
-  //       type: "user/userUpdated",
-  //       payload: { firstName, lastName, phone, zipcode },
-  //     }),
-  //   saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateAdmin);
+export default Form;
 
 const styles = StyleSheet.create({
   container: {

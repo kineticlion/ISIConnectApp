@@ -8,11 +8,14 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useEffect } from "react";
 
 import { useIsMount } from "../../utils/component";
+import { readUserId } from "../../utils/storage";
 import {
   pickImage,
   getCameraRollPermission,
   asyncAlert,
 } from "../../utils/device";
+import Api from "../../api/Api";
+import Config from "../../../config";
 
 const EditProfile = (props) => {
   const {
@@ -22,10 +25,15 @@ const EditProfile = (props) => {
     phone,
     email,
     zipcode,
-    saveuri,
+    saveUser,
     updateUser,
     navigation,
   } = props;
+
+  const imageURI =
+    !uri || uri === "null" || uri === "undefined"
+      ? Config.images.profile.uri
+      : uri;
 
   const [formuserName, setUserName] = useState(firstName);
   const [formLastName, setLastName] = useState(lastName);
@@ -33,7 +41,8 @@ const EditProfile = (props) => {
   const [formZipcode, setZipcode] = useState(zipcode);
   const [formEmail, setEmail] = useState(email);
   const [formUpdated, setFormUpdated] = useState(false);
-  const imageURI = { uri: "https://i.ibb.co/xmZGsky/portrait.jpg" };
+  const [formUri, setFormUri] = useState(imageURI);
+
   const isMount = useIsMount();
 
   useEffect(() => {
@@ -46,18 +55,29 @@ const EditProfile = (props) => {
     const permission = getCameraRollPermission();
     if (!permission) return;
     const image = await pickImage();
-    return image ? saveuri(image.uri) : null;
+    return image
+      ? setFormUri(image.uri)
+      : setFormUri(Config.images.profile.uri);
   };
 
   const handleData = async () => {
-    await updateUser(
+    const userId = await readUserId();
+    const data = await Api.updateUser(
+      userId,
       formuserName,
       formLastName,
+      formUri,
+      formZipcode,
       formPhone,
-      formEmail,
-      formZipcode
+      formEmail
     );
-    await asyncAlert("Profile", "Information Saved Successfully.");
+    if (data.msg) {
+      const userId = await readUserId();
+      const data = await Api.fetchUserData(userId);
+      saveUser(data[0]);
+      setFormUpdated(false);
+      await asyncAlert("Profile", "Information Saved Successfully.");
+    }
     navigation.goBack();
   };
 
@@ -68,7 +88,10 @@ const EditProfile = (props) => {
     >
       <View style={styles.imageSection}>
         <TouchableOpacity onPress={handleImage}>
-          <Avatar.Image source={uri ? uri : imageURI} size={200} />
+          <Avatar.Image
+            source={!formUri ? Config.images.profile : { uri: formUri }}
+            size={200}
+          />
         </TouchableOpacity>
       </View>
       <View>
@@ -122,12 +145,12 @@ const EditProfile = (props) => {
 const mapStateToProps = (state) => {
   return {
     uri: state.entities.user.data.uri,
-    firstName: state.entities.user.data.firstName,
-    lastName: state.entities.user.data.lastName,
+    firstName: state.entities.user.data.f_name,
+    lastName: state.entities.user.data.l_name,
     id: state.entities.user.data.id,
     phone: state.entities.user.data.phone,
     type: state.entities.user.data.type,
-    zipcode: state.entities.user.data.zipcode,
+    zipcode: state.entities.user.data.zip,
     email: state.entities.user.data.email,
   };
 };
@@ -138,7 +161,11 @@ const mapDispatchToProps = (dispatch) => ({
       type: "user/userUpdated",
       payload: { firstName, lastName, phone, email, zipcode },
     }),
-  saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
+  saveUser: (data) =>
+    dispatch({
+      type: "user/userReceived",
+      payload: data,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

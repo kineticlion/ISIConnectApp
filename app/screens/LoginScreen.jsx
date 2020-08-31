@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 
 import Login from "../components/LoginScreen/LoginScreen";
-import { read, rememberUser } from "../utils/storage";
+import { read, rememberUser, readUser } from "../utils/storage";
 import Api from "../api/Api";
+import { asyncAlert } from "../utils/device";
 
 export default LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -12,26 +13,26 @@ export default LoginScreen = ({ navigation }) => {
   const [spinnerStatus, setSpinnerStatus] = useState(false);
 
   useEffect(() => {
-    read(setUsername, setPassword, setSwitchValue);
+    readUser(setUsername, setPassword, setSwitchValue);
   }, []);
 
   const handleVerification = async () => {
     try {
       setSpinnerStatus(true);
-      setTimeout(() => {
-        rememberUser(username, password, switchValue);
-        navigation.replace("Profile");
+      const data = await Api.login(username, password);
+      if (data === "Wrong credential") {
+        await asyncAlert("Login", "Please check your username and password");
         setSpinnerStatus(false);
         return;
-      }, 400);
-      // const data = await Api.login(username, password);
-      // if (data.msg === "valid user") {
-      //   rememberUser(username, password, switchValue);
-      //   navigation.replace("Dashboard");
-      //   return;
-      //displayAlert("Login Error", "Please check your Email or Password.");
+      }
+      if (data.id) {
+        rememberUser(data.id, username, password, switchValue);
+        const userData = await Api.fetchUserData(data.id);
+        setSpinnerStatus(false);
+        navigation.replace("Profile", userData);
+      }
     } catch (err) {
-      // console.log(err);
+      await asyncAlert("Login Error", "Server Error");
     }
   };
 
@@ -45,8 +46,8 @@ export default LoginScreen = ({ navigation }) => {
       switchValue={switchValue}
       onSwitchValueChange={() => setSwitchValue(!switchValue)}
       onPressLogin={handleVerification}
-      usernameOnChangeText={(username) => setUsername(username)}
-      passwordOnChangeText={(password) => setPassword(password)}
+      usernameOnChangeText={(username) => setUsername(username.toLowerCase())}
+      passwordOnChangeText={(password) => setPassword(password.toLowerCase())}
       loginButtonTextStyle={{
         fontSize: 20,
         color: "white",
