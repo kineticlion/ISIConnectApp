@@ -50,12 +50,12 @@ const VotingScreen = ({ votes, saveSelection }) => {
               setIsFetching(true);
               setTimeout(() => {
                 setIsFetching(false);
-              }, 3000);
+              }, 1000);
             }}
             title="Pull to refresh"
             tintColor="red"
             titleColor="red"
-            colors={"red"}
+            colors={["red"]}
             refreshing={isFetching}
           />
         }

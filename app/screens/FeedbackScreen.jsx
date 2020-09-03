@@ -72,7 +72,10 @@ const FeedbackScreen = ({ feedback, submitFeedback, userType }) => {
                 }
               />
               <View style={{ margin: 5 }}>
-                <Badge size={30} visible={userType === 1 ? true : false}>
+                <Badge
+                  size={30}
+                  visible={userType === 1 || userType === 2 ? true : false}
+                >
                   Submissions :
                   {!item.totalSubmissions ? 0 : item.totalSubmissions}
                 </Badge>
@@ -91,7 +94,7 @@ const FeedbackScreen = ({ feedback, submitFeedback, userType }) => {
             title="Pull to refresh"
             tintColor="red"
             titleColor="red"
-            colors={"red"}
+            colors={["red"]}
             refreshing={isFetching}
           />
         }

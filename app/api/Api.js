@@ -1,6 +1,5 @@
 import Config from "../../config";
-import { asyncAlert } from "../utils/device";
-import { readUserId } from "../utils/storage";
+
 export default class Api {
   static async login(username, password) {
     const options = {

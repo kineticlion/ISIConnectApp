@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Avatar, Caption, Button, TextInput } from "react-native-paper";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -201,8 +201,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateAdmin);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: "10%",
     justifyContent: "center",
+    margin: "10%",
   },
   imageSection: {
     alignItems: "center",
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: "2%",
-    height: 50,
+    height: Platform.OS === "android" ? 40 : 50,
   },
   infoText: {
     marginLeft: 10,

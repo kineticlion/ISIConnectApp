@@ -8,7 +8,6 @@ export default Config = {
     getusersbytype: "https://connect-isi.herokuapp.com/getuserbytype?u_type=",
     deleteuserbyid: "https://connect-isi.herokuapp.com/deleteuserbyid",
     insertPoll: "https://connect-isi.herokuapp.com/addquestion",
-    addOption: "h",
   },
   userTypes: {
     superAdmin: 1,

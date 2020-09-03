@@ -119,6 +119,7 @@ const AdminCard = ({
         marginVertical: "5%",
         marginHorizontal: "5%",
         backgroundColor: "transparent",
+        elevation: 0,
       }}
     >
       <TouchableOpacity onPress={() => setIsModalVisible(!isModalVisible)}>
