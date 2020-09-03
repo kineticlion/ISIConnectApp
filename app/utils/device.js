@@ -28,9 +28,10 @@ export const asyncAlert = (title, msg, button = {}) =>
       msg,
       [
         {
-          text: "ok",
+          text: "Ok",
           onPress: () => {
             resolve("YES");
+            return 1;
           },
         },
         button,

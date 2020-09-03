@@ -1,28 +1,15 @@
 import * as React from "react";
-import {
-  Card,
-  Caption,
-  Avatar,
-  Button,
-  Text,
-  Title,
-  IconButton,
-} from "react-native-paper";
+import { Card, Caption, Avatar, Button, Text, Title } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { asyncAlert } from "../../utils/device";
-import {
-  Modal,
-  StyleSheet,
-  View,
-  RecyclerViewBackedScrollView,
-} from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 import { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getUserType } from "../../../config";
 import DataIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Api from "../../api/Api";
 
-const AdminCard = ({
+const StudentCard = ({
   id,
   uri,
   firstName,
@@ -32,7 +19,7 @@ const AdminCard = ({
   phone,
   zip,
   email,
-  adminDeleted,
+  studentDeleted,
 }) => {
   const image = uri ? uri : "https://i.ibb.co/GpmHSDd/avatar.jpg";
 
@@ -51,7 +38,7 @@ const AdminCard = ({
     );
     if (!response) return;
     await Api.deleteUserById(id);
-    adminDeleted(true);
+    studentDeleted(true);
     setIsModalVisible(!isModalVisible);
   };
 
@@ -69,7 +56,7 @@ const AdminCard = ({
         style={{ backgroundColor: "transparent" }}
       />
       <View style={{ marginTop: "3%", alignItems: "center" }}>
-        <Title>
+        <Title style={{ fontSize: 23 }}>
           {firstName} {lastName}
         </Title>
         <Caption style={{ fontSize: 17 }}>{getUserType(userType)}</Caption>
@@ -147,30 +134,20 @@ const AdminCard = ({
             }}
           >
             {renderProfile()}
-            <View
+            <TouchableOpacity
               style={{
                 justifyContent: "center",
                 alignItems: "center",
                 paddingTop: "15%",
-                margin: "2%",
               }}
+              onPress={handleDelete}
             >
-              <IconButton
-                icon="trash-can-outline"
-                color="red"
-                size={50}
-                onPress={handleDelete}
-              />
-            </View>
+              <Icon name="ios-trash" size={70} color="red" />
+            </TouchableOpacity>
           </Card>
-          <View style={{ alignItems: "center" }}>
-            <IconButton
-              icon="close"
-              color="red"
-              size={50}
-              onPress={() => setIsModalVisible(!isModalVisible)}
-            />
-          </View>
+          <TouchableOpacity onPress={() => setIsModalVisible(!isModalVisible)}>
+            <Button color="black">Close</Button>
+          </TouchableOpacity>
         </View>
       </Modal>
       {renderCard()}
@@ -178,7 +155,7 @@ const AdminCard = ({
   );
 };
 
-export default AdminCard;
+export default StudentCard;
 
 const styles = StyleSheet.create({
   info: {

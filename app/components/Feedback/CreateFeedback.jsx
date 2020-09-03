@@ -7,32 +7,28 @@ import { connect } from "react-redux";
 import Api from "../../api/Api";
 import { asyncAlert } from "../../utils/device";
 
-const CreateVote = ({ firstName, lastName, createVote, navigation }) => {
-  const [voteTitle, setVoteTitle] = useState("");
+const CreateFeedback = ({
+  firstName,
+  lastName,
+  createFeedback,
+  navigation,
+}) => {
+  const [feedbackTitle, setFeedbackTitle] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [option4, setOption4] = useState("");
 
   const handleVoteCreation = async () => {
-    if (!voteTitle) return;
-    const { id } = await Api.insertPoll(voteTitle);
+    if (!feedbackTitle) return;
     const author = firstName + " " + lastName;
-    const date = Date(Date.now());
-    createVote(
-      id + "",
-      voteTitle,
-      author,
-      [
-        { id: "1", name: option1, count: 0 },
-        { id: "2", name: option2, count: 0 },
-        { id: "3", name: option3, count: 0 },
-        { id: "4", name: option4, count: 0 },
-      ],
-      date,
-      0
-    );
-    asyncAlert("Vote", "Vote Successfully Created.");
+    createFeedback(Date.now() + "", feedbackTitle, author, [
+      { id: "1", name: option1 },
+      { id: "2", name: option2 },
+      { id: "3", name: option3 },
+      { id: "4", name: option4 },
+    ]);
+    asyncAlert("Feedback", "Feedback Submitted Successfully.");
     navigation.goBack();
   };
 
@@ -43,10 +39,10 @@ const CreateVote = ({ firstName, lastName, createVote, navigation }) => {
     >
       <TextInput
         mode="outlined"
-        value={voteTitle}
+        value={feedbackTitle}
         placeholder="Title"
         style={styles.input}
-        onChangeText={(title) => setVoteTitle(title)}
+        onChangeText={(title) => setFeedbackTitle(title)}
       />
       <View style={styles.optionContainer}>
         <TextInput
@@ -85,7 +81,9 @@ const CreateVote = ({ firstName, lastName, createVote, navigation }) => {
           color="red"
           mode="contained"
           onPress={handleVoteCreation}
-          disabled={!voteTitle}
+          disabled={
+            !feedbackTitle || !option1 || !option2 || !option3 || !option4
+          }
         >
           Create
         </Button>
@@ -98,26 +96,23 @@ const mapStateToProps = (state) => {
   return {
     firstName: state.entities.user.data.f_name,
     lastName: state.entities.user.data.l_name,
-    votes: state.entities.vote.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  createVote: (id, title, author, options, date, totalVotes) =>
+  createFeedback: (id, title, author, options) =>
     dispatch({
-      type: "vote/votePollCreated",
+      type: "feedback/feedbackCreated",
       payload: {
         id,
         title,
         author,
         options,
-        creationDate: date,
-        totalVotes,
       },
     }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateVote);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateFeedback);
 
 const styles = StyleSheet.create({
   container: {

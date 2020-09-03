@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "./api";
 import { useReducer } from "react";
+import Api from "../api/Api";
 
 const slice = createSlice({
   name: "user",

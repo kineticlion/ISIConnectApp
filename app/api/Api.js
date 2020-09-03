@@ -105,4 +105,34 @@ export default class Api {
     const data = await response.json();
     return data;
   }
+
+  static async insertPoll(title) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        question: title,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(Config.routes.insertPoll, options);
+    const data = await response.json();
+    return data;
+  }
+
+  static async addOptionToQuestion(questionId, answer) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        answer,
+        question_id: questionId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(Config.routes.insertPoll, options);
+    const data = await response.json();
+  }
 }

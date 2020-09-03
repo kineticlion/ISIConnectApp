@@ -2,15 +2,14 @@ import React from "react";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
-import Config from "../../../config";
 
-const CreateVoteButton = ({ userType }) => {
+const CreateFeedbackButton = ({ userType }) => {
   const navigation = useNavigation();
-  return userType === Config.userTypes.admin ||
+  return userType === Config.userTypes.superAdmin ||
     userType === Config.userTypes.student ? null : (
     <Text
-      style={{ fontSize: 17, color: "red", fontWeight: "500" }}
-      onPress={() => navigation.navigate("Create Vote")}
+      style={{ fontSize: 18, color: "red", fontWeight: "500" }}
+      onPress={() => navigation.navigate("Create Feedback")}
     >
       Create
     </Text>
@@ -23,4 +22,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CreateVoteButton);
+export default connect(mapStateToProps)(CreateFeedbackButton);

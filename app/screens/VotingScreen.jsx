@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 import VoteCard from "../components/Vote/VoteCard";
 
-const VotingScreen = ({ votes }) => {
+const VotingScreen = ({ votes, saveSelection }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   useEffect(() => {
@@ -39,6 +39,9 @@ const VotingScreen = ({ votes }) => {
             title={item.title}
             author={item.author}
             date={item.creationDate}
+            options={item.options}
+            totalVotes={item.totalVotes}
+            saveSelection={saveSelection}
           />
         )}
         refreshControl={
@@ -64,17 +67,16 @@ const VotingScreen = ({ votes }) => {
 
 const mapStateToProps = (state) => {
   return {
-    votes: state.entities.vote,
+    votes: state.entities.vote.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  //   updateUser: (firstName, lastName, phone, zipcode) =>
-  //     dispatch({
-  //       type: "user/userUpdated",
-  //       payload: { firstName, lastName, phone, zipcode },
-  //     }),
-  //   saveuri: (uri) => dispatch({ type: "user/uriReceived", payload: { uri } }),
+  saveSelection: (title, optionId) =>
+    dispatch({
+      type: "vote/voteOptionSelected",
+      payload: { title, id: optionId },
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VotingScreen);
@@ -82,8 +84,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(VotingScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "stretch",
     justifyContent: "center",
     marginTop: "21%",
+    margin: "5%",
   },
 });

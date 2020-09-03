@@ -12,6 +12,10 @@ import Logout from "../components/Logout/Logout";
 import VotingScreen from "../screens/VotingScreen";
 import AdminScreen from "../screens/AdminScreen";
 import FeedbackScreen from "../screens/FeedbackScreen";
+import StudentScreen from "../screens/StudentScreen";
+import Config from "../../config";
+import CreateStudentButton from "../components/Student/CreateStudentButton";
+import CreateFeedbackButton from "../components/Feedback/CreateFeedbackButton";
 
 export const useIsMount = () => {
   const isMountRef = useRef(true);
@@ -27,6 +31,7 @@ export const generateTabScreens = (userType) => {
   const voteScreen = { id: 3, name: "Vote", component: VotingScreen };
   const feedbackScreen = { id: 4, name: "Feedback", component: FeedbackScreen };
   const logoutScreen = { id: 5, name: "Logout", component: Logout };
+  const studentScreen = { id: 6, name: "Student", component: StudentScreen };
 
   if (userType === "Super Admin") {
     return [
@@ -38,10 +43,16 @@ export const generateTabScreens = (userType) => {
     ];
   }
   if (userType === "Admin") {
-    return [profileScreen, voteScreen, feedbackScreen, logoutScreen];
+    return [
+      profileScreen,
+      studentScreen,
+      voteScreen,
+      feedbackScreen,
+      logoutScreen,
+    ];
   }
   if (userType === "Student") {
-    return;
+    return [profileScreen, voteScreen, feedbackScreen, logoutScreen];
   }
 };
 
@@ -74,7 +85,13 @@ export const generateStackHeaders = (route) => {
         case "Feedback":
           return (
             <View style={{ marginRight: 40 }}>
-              <CreateAdminButton />
+              <CreateFeedbackButton />
+            </View>
+          );
+        case "Student":
+          return (
+            <View style={{ marginRight: 40 }}>
+              <CreateStudentButton />
             </View>
           );
       }

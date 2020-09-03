@@ -16,12 +16,9 @@ import { Text, View } from "react-native";
 import { useState } from "react";
 
 const ProfileScreen = ({ route }) => {
-  const userId = route.params[0].u_type;
-  const [screens, setScreens] = useState(
-    generateTabScreens(getUserType(userId))
-  );
-
   const Tab = createBottomTabNavigator();
+  const userId = route.params[0].u_type;
+  const [screens] = useState(generateTabScreens(getUserType(userId)));
 
   return (
     <Tab.Navigator
@@ -45,6 +42,9 @@ const ProfileScreen = ({ route }) => {
             case "Feedback":
               iconName = "md-chatboxes";
               break;
+            case "Student":
+              iconName = "ios-person";
+              break;
           }
           return (
             <Icon name={iconName} size={30} color={focused ? "red" : "black"} />
@@ -63,10 +63,6 @@ const ProfileScreen = ({ route }) => {
           component={screen.component}
         />
       ))}
-      {/* <Tab.Screen name="Admin" component={AdminScreen} />
-      <Tab.Screen name="Vote" component={VotingScreen} />
-      <Tab.Screen name="Feedback" component={FeedbackScreen} />
-      <Tab.Screen name="Logout" component={Logout} /> */}
     </Tab.Navigator>
   );
 };

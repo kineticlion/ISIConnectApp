@@ -15,6 +15,8 @@ import configureStore from "./app/store/store";
 import { generateStackHeaders } from "./app/utils/component";
 import CreateAdmin from "./app/components/Admin/CreateAdmin";
 import FeedbackScreen from "./app/screens/FeedbackScreen";
+import CreateStudent from "./app/components/Student/CreateStudent";
+import CreateFeedback from "./app/components/Feedback/CreateFeedback";
 
 const store = configureStore();
 
@@ -54,6 +56,8 @@ export default function App() {
           />
           <Stack.Screen name="Edit Profile" component={EditProfile} />
           <Stack.Screen name="Create Admin" component={CreateAdmin} />
+          <Stack.Screen name="Create Student" component={CreateStudent} />
+          <Stack.Screen name="Create Feedback" component={CreateFeedback} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

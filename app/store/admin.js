@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
   name: "admin",
-  initialState: {},
+  initialState: [],
   reducers: {
     adminCreated: (admin, action) => {
       admin.push(action.payload);
