@@ -8,9 +8,10 @@
 
 
 # Features :boom:
-- :heavy_check_mark: Unique User Profiles
+- :heavy_check_mark: State management with Redux
 - :heavy_check_mark: Voting and feedback
 - :heavy_check_mark: Different Access Levels (Super Admin,Admin,Student)
+- :heavy_check_mark: Unique User Profiles
 
 # Usage :pushpin:
 - Run 'npm start' after cloning the project
