@@ -69,7 +69,11 @@ const Profile = (props) => {
         <View style={styles.userInfoSection}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Avatar.Image
-              source={!uri ? Config.images.profile : { uri }}
+              source={
+                !uri || uri === "undefined" || uri === "null"
+                  ? Config.images.profile
+                  : { uri }
+              }
               size={130}
             />
             <View
@@ -89,15 +93,27 @@ const Profile = (props) => {
           <View style={styles.userInfoSection}>
             <View style={styles.row}>
               <Icon name="email" size={20} color="black" />
-              <Text style={styles.infoText}>{email}</Text>
+              <Text style={styles.infoText}>
+                {!email || email === "undefined" || email === "null"
+                  ? "No record found"
+                  : email}
+              </Text>
             </View>
             <View style={styles.row}>
               <Icon name="phone" size={20} color="black" />
-              <Text style={styles.infoText}>{phone}</Text>
+              <Text style={styles.infoText}>
+                {!phone || phone === "undefined" || phone === "null"
+                  ? "No record found"
+                  : phone}
+              </Text>
             </View>
             <View style={styles.row}>
               <Icon name="map-marker" size={20} color="black" />
-              <Text style={styles.infoText}>{zipcode}</Text>
+              <Text style={styles.infoText}>
+                {!zipcode || zipcode === "undefined" || zipcode === "null"
+                  ? "No record found"
+                  : zipcode}
+              </Text>
             </View>
           </View>
         </View>

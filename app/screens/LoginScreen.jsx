@@ -32,8 +32,7 @@ export default LoginScreen = ({ navigation }) => {
         navigation.replace("Profile", userData);
       }
     } catch (err) {
-      const response = await asyncAlert("Login Error", "Server Error");
-      if (response) return;
+      await asyncAlert("Login", "Error connecting to Server.");
       setSpinnerStatus(false);
     }
   };

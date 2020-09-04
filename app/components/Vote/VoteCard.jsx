@@ -205,7 +205,11 @@ const VoteCard = ({
   const renderCards = () => {
     return (
       <TouchableOpacity onPress={() => setIsModalVisible(!isModalVisible)}>
-        <Card style={{ marginTop: "3%" }}>
+        <Card
+          style={{
+            marginTop: "3%",
+          }}
+        >
           <Card.Content>
             <Title>{title}</Title>
             <Caption>Created By : {author}</Caption>
@@ -229,7 +233,13 @@ const VoteCard = ({
           {renderCard()}
         </View>
       </Modal>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {renderCards()}
       </View>
     </>

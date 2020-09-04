@@ -86,6 +86,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     marginTop: "21%",
-    margin: "5%",
   },
 });

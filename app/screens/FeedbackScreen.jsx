@@ -76,7 +76,7 @@ const FeedbackScreen = ({ feedback, submitFeedback, userType }) => {
                   size={30}
                   visible={userType === 1 || userType === 2 ? true : false}
                 >
-                  Submissions :
+                  Submissions :{" "}
                   {!item.totalSubmissions ? 0 : item.totalSubmissions}
                 </Badge>
               </View>
