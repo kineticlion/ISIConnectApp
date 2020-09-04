@@ -12,6 +12,8 @@
 - :heavy_check_mark: Voting and feedback
 - :heavy_check_mark: Different Access Levels (Super Admin,Admin,Student)
 - :heavy_check_mark: Unique User Profiles
+- :heavy_check_mark: Database written in mysql
+- :heavy_check_mark: Node.js backend
 
 # Usage :pushpin:
 - Run 'npm i' after cloning the project 
